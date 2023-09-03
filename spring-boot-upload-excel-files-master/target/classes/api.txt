@@ -1,0 +1,105 @@
+
+Spring Boot-Hibernate with MySQL-DB
+====================================
+
+
+Create a web backend application with the following supported endpoints (API’s):
+
+1) API to accept a CSV file and ingest the data into a db. You can take it that a new csv added will be of the same format.
+2) Given a supplier id or name, list all the products that the supplier has with stock.
+3) Accept a search param for the above filter based on the product name.
+4) Accept a param for the above api, or create a new endpoint to only list out products that didn’t yet expire for that supplier or list of suppliers.
+5) Make the above api’s pageable.
+
+
+API-1
+=========
+Url :- 	http://localhost:8080/api/excel/upload
+
+Headers :-
+
+		Content-Type : application/vnd.ms-excel
+		Content-Disposition : attachment; filename=SampleInventory.xlsx
+
+Reuest Body(form-data):-
+
+		file : [select file]SampleInventory.xlsx
+
+Response  :-
+
+		{
+		    "message": "Uploaded the file successfully: SampleInventory.xlsx"
+		}
+		
+
+
+API-2
+=========
+
+Url :- 	http://localhost:8080/api/excel/list
+
+Headers :-
+
+		Content-Type : application/json
+
+
+Request Body :-
+
+		{
+		    "supplierName" : "MED MANOR ORGANICS PVT LT     HYDERABAD",
+		    "productNameFilter" : "GIFT ITEM",
+		    "isExpiry" :true,
+		    "page" : 0,
+		    "size" : 10
+		}
+
+Response  :-
+
+
+		{
+		    "totalItems": 2,
+		    "totalPages": 1,
+		    "currentPage": 0,
+		    "sampleInventorys": [
+		        {
+		            "id": 6,
+		            "code": "XXCKS",
+		            "name": "GIFT ITEM",
+		            "batch": "ZINCOLD TA",
+		            "stock": 2.0,
+		            "deal": 0.0,
+		            "free": 0.0,
+		            "mrp": 1.0,
+		            "rate": 1.0,
+		            "exp": "2030-01-09T18:30:00.000+0000",
+		            "company": "GIFT ARTICALS",
+		            "supplier": "MED MANOR ORGANICS PVT LT     HYDERABAD"
+		        },
+		        {
+		            "id": 8,
+		            "code": "XXCKS",
+		            "name": "GIFT ITEM",
+		            "batch": "PAINT/SHAR",
+		            "stock": 2.0,
+		            "deal": 0.0,
+		            "free": 0.0,
+		            "mrp": 1.0,
+		            "rate": 0.95,
+		            "exp": "2030-01-02T18:30:00.000+0000",
+		            "company": "GIFT ARTICALS",
+		            "supplier": "MED MANOR ORGANICS PVT LT     HYDERABAD"
+		        }
+		    ]
+		}
+		
+		
+
+
+Note :- for above api based on request response gets changed along with pagination
+
+*********************************************END*********************************************************
+
+
+
+
+		
